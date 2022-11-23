@@ -1,8 +1,5 @@
 acme_sylius_example_shop:
-    resource: "@BrightwebSyliusStanConnectPlugin/config/shop_routing.yml"
-    prefix: /{_locale}
-    requirements:
-        _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
+    resource: "@SyliusShopBundle/Resources/config/routing.yml"
 
 acme_sylius_example_admin:
     resource: "@BrightwebSyliusStanConnectPlugin/config/admin_routing.yml"

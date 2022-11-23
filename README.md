@@ -118,5 +118,5 @@ To be able to set up a plugin's database, remember to configure you database cre
 
     ```bash
     (cd tests/Application && APP_ENV=dev bin/console sylius:fixtures:load)
-    (cd tests/Application && APP_ENV=dev bin/console server:run -d public)
+    (cd tests/Application && APP_ENV=dev symfony server:start --allow-http --dir public)
     ```

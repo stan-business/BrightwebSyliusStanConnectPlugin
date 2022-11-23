@@ -1,0 +1,7 @@
+sylius_ui:
+    events:
+        sylius.shop.checkout.address.before_form:
+            blocks:
+                connect_with_stan:
+                    template: '@BrightwebSyliusStanConnectPlugin/Buttons/addressing.html.twig'
+                    priority: 7

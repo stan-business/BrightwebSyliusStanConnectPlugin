@@ -1,0 +1,4 @@
+brightweb:
+    stan_connect:
+        connect_with_stan: "Login with Stan"
+        connect_with_stan_tooltip: "One click checkout with Stan requires to have a Stan account"
