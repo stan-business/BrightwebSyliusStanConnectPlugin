@@ -4,15 +4,14 @@
  * This file was created by developers working at Brightweb, editor of Stan
  * Visit our website https://stan-business.fr
  * For more information, contact jonathan@brightweb.cloud
- */
+*/
 
 declare(strict_types=1);
 
-namespace Brightweb\SyliusStanConnectPlugin\Provider;
+namespace Brightweb\SyliusStanConnectPlugin\Doctrine\ORM;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 
-use Sylius\Component\Core\Model\ChannelInterface;
-
-interface StanConnectConfigurationProviderInterface
+interface StanConnectRepositoryInterface extends RepositoryInterface
 {
-    public function getClientId(): string;
+    //
 }

@@ -1,0 +1,13 @@
+brightweb_sylius_stan_connect_admin_stan_connect:
+    resource: |
+        alias: brightweb_sylius_stan_connect.stan_connect
+        except: ['show', 'create', 'delete']
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        redirect: update
+        vars:
+            update:
+                subheader: brightweb.stan_connect.ui.label
+                templates:
+                    form: "@BrightwebSyliusStanConnectPlugin/Admin/_form.html.twig"
+    type: sylius.resource

@@ -12,16 +12,25 @@ namespace Brightweb\SyliusStanConnectPlugin\Provider;
 
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
+use Brightweb\SyliusStanConnectPlugin\Doctrine\ORM\StanConnectRepository;
 use Webmozart\Assert\Assert;
 
 final class StanConnectConfigurationProvider implements StanConnectConfigurationProviderInterface
 {
-    public function getClientId(ChannelInterface $channel): string
-    {
-        // $config = $this->getPayPalPaymentMethodConfig($channel);
-        // Assert::keyExists($config, 'client_id');
+    private StanConnectRepository $stanConnectConfigRepository;
 
-        return (string) "";
+    public function __construct(StanConnectRepository $stanConnectConfigRepository)
+    {
+        $this->stanConnectConfigRepository = $stanConnectConfigRepository;
+    }
+
+    public function getClientId(): string
+    {
+        $configs = $this->stanConnectConfigRepository->findAll();
+
+        // TODO get the good Stan Connect
+        $config = array_pop($configs);
+
+        return $config->getClientId();
     }
 }

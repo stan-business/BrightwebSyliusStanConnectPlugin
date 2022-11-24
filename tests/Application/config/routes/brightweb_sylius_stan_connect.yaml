@@ -1,0 +1,2 @@
+brightweb_sylius_stan_connect:
+  resource: "@BrightwebSyliusStanConnectPlugin/config/admin_routing.yml"

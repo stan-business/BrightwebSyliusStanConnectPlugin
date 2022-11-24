@@ -1,1 +1,4 @@
 # Define your own admin routes here
+brightweb_sylius_stan_connect_admin_stan_connect:
+    resource: "@BrightwebSyliusStanConnectPlugin/config/routing/admin.yml"
+    prefix: /

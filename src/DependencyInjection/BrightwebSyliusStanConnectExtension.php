@@ -13,10 +13,10 @@ namespace Brightweb\SyliusStanConnectPlugin\DependencyInjection;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
+use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-final class BrightwebSyliusStanConnectExtension extends Extension
+final class BrightwebSyliusStanConnectExtension extends AbstractResourceExtension
 {
     /**
      * @psalm-suppress UnusedVariable
@@ -25,6 +25,8 @@ final class BrightwebSyliusStanConnectExtension extends Extension
     {
         $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+
+        $this->registerResources('brightweb_sylius_stan_connect', $config['driver'], $config['resources'], $container);
 
         $loader->load('services.xml');
     }

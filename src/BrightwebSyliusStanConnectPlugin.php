@@ -12,6 +12,7 @@ namespace Brightweb\SyliusStanConnectPlugin;
 
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 
 final class BrightwebSyliusStanConnectPlugin extends Bundle
 {
@@ -20,5 +21,15 @@ final class BrightwebSyliusStanConnectPlugin extends Bundle
     public function getPath(): string
     {
         return \dirname(__DIR__);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedDrivers(): array
+    {
+        return [
+            SyliusResourceBundle::DRIVER_DOCTRINE_ORM,
+        ];
     }
 }
