@@ -15,6 +15,8 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Brightweb\SyliusStanConnectPlugin\Doctrine\ORM\StanConnectRepository;
 use Webmozart\Assert\Assert;
 
+use Brightweb\SyliusStanConnectPlugin\Entity\StanConnect;
+
 final class StanConnectConfigurationProvider implements StanConnectConfigurationProviderInterface
 {
     private StanConnectRepository $stanConnectConfigRepository;
@@ -26,11 +28,24 @@ final class StanConnectConfigurationProvider implements StanConnectConfiguration
 
     public function getClientId(): string
     {
-        $configs = $this->stanConnectConfigRepository->findAll();
-
-        // TODO get the good Stan Connect
-        $config = array_pop($configs);
-
+        $config = $this->getConfiguration();
         return $config->getClientId();
+    }
+
+    public function getClientSecret(): string
+    {
+        $config = $this->getConfiguration();
+        return $config->getClientId();
+    }
+
+    public function getScope(): string
+    {
+        return 'openid phone email address profile';
+    }
+
+    private function getConfiguration(): StanConnect
+    {
+        $configs = $this->stanConnectConfigRepository->findAll();
+        return array_pop($configs);
     }
 }

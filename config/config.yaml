@@ -5,3 +5,12 @@ sylius_ui:
                 connect_with_stan:
                     template: '@BrightwebSyliusStanConnectPlugin/Buttons/addressing.html.twig'
                     priority: 7
+
+monolog:
+    channels: ['stan_connect']
+    handlers:
+        paypal:
+            level: debug
+            type: stream
+            path: '%kernel.logs_dir%/stan_connect.log'
+            channels: [stan_connect]

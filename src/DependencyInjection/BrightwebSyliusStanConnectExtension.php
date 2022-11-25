@@ -26,6 +26,9 @@ final class BrightwebSyliusStanConnectExtension extends AbstractResourceExtensio
         $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
+        // TODO env
+        $container->setParameter('brightweb.stan_connect_plugin.api_base_url', 'https://api.stan-app.fr/v1');
+
         $this->registerResources('brightweb_sylius_stan_connect', $config['driver'], $config['resources'], $container);
 
         $loader->load('services.xml');

@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
-use Brightweb\SyliusStanConnectPlugin\Provider\StanConnectConfigurationProviderInterface;
+use Brightweb\SyliusStanConnectPlugin\Api\ConnectUserApiInterface;
 
 class StanConnectButtonsController
 {
@@ -30,28 +30,27 @@ class StanConnectButtonsController
 
     private LocaleContextInterface $localeContext;
 
-    private StanConnectConfigurationProviderInterface $stanConnectConfig;
+    private ConnectUserApiInterface $stanConnectApi;
 
     public function __construct(
         Environment $twig,
         UrlGeneratorInterface $router,
         ChannelContextInterface $channelContext,
         LocaleContextInterface $localeContext,
-        StanConnectConfigurationProviderInterface $stanConnectConfig
+        ConnectUserApiInterface $stanConnectApi
     ) {
         $this->twig = $twig;
         $this->router = $router;
         $this->channelContext = $channelContext;
         $this->localeContext = $localeContext;
-        $this->stanConnectConfig = $stanConnectConfig;
+        $this->stanConnectApi = $stanConnectApi;
     }
 
     public function renderAddressingButton(Request $request): Response
     {
-        $clientId = $this->stanConnectConfig->getClientId();
         try {
             return new Response($this->twig->render('@BrightwebSyliusStanConnectPlugin/stan_connect_button.html.twig', [
-                'connect_url' => $clientId,
+                'connect_url' => $this->stanConnectApi->getConnectUrl(),
             ]));
         } catch (\InvalidArgumentException $exception) {
             return new Response('');

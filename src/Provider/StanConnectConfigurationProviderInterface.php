@@ -15,4 +15,8 @@ use Sylius\Component\Core\Model\ChannelInterface;
 interface StanConnectConfigurationProviderInterface
 {
     public function getClientId(): string;
+
+    public function getClientSecret(): string;
+
+    public function getScope(): string;
 }

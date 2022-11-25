@@ -1,0 +1,22 @@
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true"/>
+
+        <service
+            id="Brightweb\SyliusStanConnectPlugin\Client\StanConnectClientInterface"
+            class="Brightweb\SyliusStanConnectPlugin\Client\StanConnectClient"
+        >
+            <argument type="service" id="monolog.logger.stan_connect" />
+            <argument type="service" id="Brightweb\SyliusStanConnectPlugin\Provider\StanConnectConfigurationProviderInterface" />
+            <argument type="service" id="sylius.context.channel" />
+            <argument>%brightweb.stan_connect_plugin.api_base_url%</argument>
+        </service>
+
+        <service
+            id="Brightweb\SyliusStanConnectPlugin\Api\ConnectUserApiInterface"
+            class="Brightweb\SyliusStanConnectPlugin\Api\ConnectUserApi"
+        >
+            <argument type="service" id="Brightweb\SyliusStanConnectPlugin\Client\StanConnectClientInterface" />
+        </service>
+    </services>
+</container>
