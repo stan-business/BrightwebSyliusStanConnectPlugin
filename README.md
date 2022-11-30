@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://www.stan-business.com" target="_blank">
+    <a href="https://www.stan-business.fr" target="_blank">
         <img src="https://uploads-ssl.webflow.com/6244c80f2415f9499e3eb441/6256f6482c7c155a8f5a39b0_logo_stan_nobg_gradv2-min.png" width="200"  />
     </a>
 </p>
