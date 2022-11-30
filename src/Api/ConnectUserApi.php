@@ -12,7 +12,7 @@ namespace Brightweb\SyliusStanConnectPlugin\Api;
 
 use Brightweb\SyliusStanConnectPlugin\Client\StanConnectClientInterface;
 
-use Stan\Utils\ConnectUtils;
+use Stan\Utils\StanUtils;
 
 final class ConnectUserApi implements ConnectUserApiInterface
 {
@@ -23,15 +23,20 @@ final class ConnectUserApi implements ConnectUserApiInterface
         $this->stanConnectClient = $stanConnectClient;
     }
 
-    public function connectUser(string $accessToken)
+    public function getUserWithAuthorizationCode(string $code)
     {
-        // TODO
+        $accessToken = $this
+            ->stanConnectClient
+            ->getAccessToken($code, $this->getRedirectUri());
+
+        $user = $this
+            ->stanConnectClient
+            ->getUser($accessToken);
     }
 
     public function getConnectUrl(): string
     {
-        // TODO generate state
-        $state = "ABC";
+        $state = StanUtils::generateState();
         return $this
             ->stanConnectClient
             ->getConnectUrl($this->getRedirectUri(), $state)

@@ -12,7 +12,7 @@ namespace Brightweb\SyliusStanConnectPlugin\Api;
 
 interface ConnectUserApiInterface
 {
-    public function connectUser(string $accessToken);
+    public function getUserWithAuthorizationCode(string $code);
 
     public function getConnectUrl(): string;
 

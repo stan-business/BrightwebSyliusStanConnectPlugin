@@ -20,6 +20,8 @@ use Stan\Utils\ConnectUtils;
 use Stan\Api\StanClient;
 use Stan\Model\ConnectAccessTokenRequestBody;
 
+use Stan\ApiException;
+
 final class StanConnectClient implements StanConnectClientInterface
 {
 
@@ -55,17 +57,21 @@ final class StanConnectClient implements StanConnectClientInterface
             ->setScope($this->stanConnectConfigurationProvider->getScope())
             ->setRedirectUri($redirectUri);
 
+        $config = $this->getApiConfiguration();
+
         try {
             $client = new StanClient($config);
             $accessTokenRes = $client
                 ->connectApi
                 ->createConnectAccessToken($accessTokenPayload)
             ;
-        } catch (Exception $e) {
+            return $accessTokenRes->getAccessToken();
+        } catch (ApiException $e) {
             $this
                 ->logger
                 ->error(sprintf('getting access token with client ID %s failed (base URL is %s): %s', $clientId, $this->baseUrl, $e))
             ;
+            throw $e;
         }
     }
 
@@ -81,11 +87,12 @@ final class StanConnectClient implements StanConnectClientInterface
         try {
             $user = $client->userApi->getUser();
             return $user;
-        } catch(Exception $e) {
+        } catch(ApiException $e) {
             $this
                 ->logger
                 ->error(sprintf('getting user infos with access token %s failed (base URL is %s): $s', $accessToken, $this->baseUrl, $e))
             ;
+            throw $e;
         }
     }
 

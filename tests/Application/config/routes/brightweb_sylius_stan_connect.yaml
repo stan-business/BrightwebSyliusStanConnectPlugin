@@ -1,2 +1,5 @@
-brightweb_sylius_stan_connect:
+brightweb_sylius_stan_connect_admin:
   resource: "@BrightwebSyliusStanConnectPlugin/config/admin_routing.yml"
+brightweb_sylius_stan_connect_shop:
+  resource: "@BrightwebSyliusStanConnectPlugin/config/shop_routing.yml"
+
