@@ -10,6 +10,7 @@ brightweb:
                 auth_error: "Your authentication failed, please reach the support!"
         connect_with_stan: "Login with Stan"
         connect_with_stan_tooltip: "One click checkout with Stan requires to have a Stan account"
+        form_title: "Easy checkin with Stan"
         validator:
             client_id:
                 not_blank: "Client ID must be set"

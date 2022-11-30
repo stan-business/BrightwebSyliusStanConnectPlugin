@@ -1,122 +1,38 @@
 <p align="center">
+    <a href="https://www.stan-business.com" target="_blank">
+        <img src="https://uploads-ssl.webflow.com/6244c80f2415f9499e3eb441/6256f6482c7c155a8f5a39b0_logo_stan_nobg_gradv2-min.png" width="200"  />
+    </a>
+</p>
+<br/>
+<p align="center">
     <a href="https://sylius.com" target="_blank">
-        <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
+        <img src="https://demo.sylius.com/assets/shop/img/logo.png" width="200"  />
     </a>
 </p>
 
-<h1 align="center">Plugin Skeleton</h1>
+# Stan Connect Plugin in Sylius
+----
 
-<p align="center">Skeleton for starting Sylius plugins.</p>
+[![](https://img.shields.io/packagist/l/stan-business/sylius-stan-connect-plugin.svg) ](https://packagist.org/packages/stan-business/sylius-stan-connect-plugin "License") [ ![](https://img.shields.io/packagist/v/stan-business/sylius-stan-connect-plugin.svg) ](https://packagist.org/packages/stan-business/sylius-stan-connect-plugin "Version") [![Support](https://img.shields.io/badge/support-contact%20author-blue])](https://compte.stan-app.fr)
 
-## Documentation
+[Stan is a French digital solution](https://www.stan-business.fr) that allows its users to connect in 1 click, with a unique digital identifier, to all e-commerce sites developed with Sylius.
 
-For a comprehensive guide on Sylius Plugins development please go to Sylius documentation,
-there you will find the <a href="https://docs.sylius.com/en/latest/plugin-development-guide/index.html">Plugin Development Guide</a>, that is full of examples.
+By adding the Stan Connect plugin, users will be able to experience your products and services immediately without having to fill out any registration form. By eliminating this step, you offer them a smooth and frictionless experience while guaranteeing an excellent level of security.
 
-## Quickstart Installation
+## Why should I use Stan Connect in my online business?
 
-### Traditional
+✔ More traffic to your site
+✔ Improved customer experience
+✔ New customers
+✔ More sales
+✔ Enhanced security
 
-1. Run `composer create-project sylius/plugin-skeleton ProjectName`.
+## What does this plugin give me?
 
-2. From the plugin skeleton root directory, run the following commands:
+Security is the key to our success: Stan Connect integrates an OAUTH2 standard with OpenID to instantly and securely transmit user data to you.
 
-    ```bashf
-    $ (cd tests/Application && yarn install)
-    $ (cd tests/Application && yarn build)
-    $ (cd tests/Application && APP_ENV=test bin/console assets:install public)
-    
-    $ (cd tests/Application && APP_ENV=test bin/console doctrine:database:create)
-    $ (cd tests/Application && APP_ENV=test bin/console doctrine:schema:create)
-    ```
+Stan already has 2,000 active users and 200 partner merchants. Join Stan and take your e-commerce to the next level.
 
-To be able to set up a plugin's database, remember to configure you database credentials in `tests/Application/.env` and `tests/Application/.env.test`.
-
-### Docker
-
-1. Execute `docker compose up -d`
-
-2. Initialize plugin `docker compose exec app make init`
-
-3. See your browser `open localhost`
-
-## Usage
-
-### Running plugin tests
-
-  - PHPUnit
-
-    ```bash
-    vendor/bin/phpunit
-    ```
-
-  - PHPSpec
-
-    ```bash
-    vendor/bin/phpspec run
-    ```
-
-  - Behat (non-JS scenarios)
-
-    ```bash
-    vendor/bin/behat --strict --tags="~@javascript"
-    ```
-
-  - Behat (JS scenarios)
- 
-    1. [Install Symfony CLI command](https://symfony.com/download).
- 
-    2. Start Headless Chrome:
-    
-      ```bash
-      google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1
-      ```
-    
-    3. Install SSL certificates (only once needed) and run test application's webserver on `127.0.0.1:8080`:
-    
-      ```bash
-      symfony server:ca:install
-      APP_ENV=test symfony server:start --port=8080 --dir=tests/Application/public --daemon
-      ```
-    
-    4. Run Behat:
-    
-      ```bash
-      vendor/bin/behat --strict --tags="@javascript"
-      ```
-    
-  - Static Analysis
-  
-    - Psalm
-    
-      ```bash
-      vendor/bin/psalm
-      ```
-      
-    - PHPStan
-    
-      ```bash
-      vendor/bin/phpstan analyse -c phpstan.neon -l max src/  
-      ```
-
-  - Coding Standard
-  
-    ```bash
-    vendor/bin/ecs check src
-    ```
-
-### Opening Sylius with your plugin
-
-- Using `test` environment:
-
-    ```bash
-    (cd tests/Application && APP_ENV=test bin/console sylius:fixtures:load)
-    (cd tests/Application && APP_ENV=test bin/console server:run -d public)
-    ```
-    
-- Using `dev` environment:
-
-    ```bash
-    (cd tests/Application && APP_ENV=dev bin/console sylius:fixtures:load)
-    (cd tests/Application && APP_ENV=dev symfony server:start --allow-http --dir public)
-    ```
+1. [Installation](docs/installation.md)
+1. [Onboarding](docs/onboarding.md)
+1. [Development](docs/development.md)

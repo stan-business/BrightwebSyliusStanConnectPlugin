@@ -6,6 +6,7 @@
             <argument type="service" id="twig" />
             <argument type="service" id="sylius.context.channel" />
             <argument type="service" id="sylius.context.locale" />
+            <argument type="service" id="sylius.context.cart" />
             <argument type="service" id="Brightweb\SyliusStanConnectPlugin\Api\ConnectUserApiInterface" />
         </service>
 
