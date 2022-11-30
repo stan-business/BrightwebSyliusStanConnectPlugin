@@ -24,6 +24,7 @@ use Doctrine\Persistence\ObjectManager;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Psr\Log\LoggerInterface;
 
 use Brightweb\SyliusStanConnectPlugin\Api\ConnectUserApiInterface;
 
@@ -33,6 +34,8 @@ use Stan\ApiException;
 
 final class ConnectController
 {
+
+    private LoggerInterface $logger;
 
     private UrlGeneratorInterface $router;
 
@@ -51,6 +54,7 @@ final class ConnectController
     private ConnectUserApiInterface $stanConnectApi;
 
     public function __construct(
+        LoggerInterface $logger,
         UrlGeneratorInterface $router,
         CartContextInterface $cartContext,
         AddressFactoryInterface $addressFactory,
@@ -60,6 +64,7 @@ final class ConnectController
         CustomerRepositoryInterface $customerRepository,
         ConnectUserApiInterface $stanConnectApi
     ) {
+        $this->logger = $logger;
         $this->router = $router;
         $this->addressFactory = $addressFactory;
         $this->customerFactory = $customerFactory;
@@ -76,15 +81,18 @@ final class ConnectController
 
         $err = $request->query->get('error');
         if (null !== $err) {
-            // TODO logs
-            $this->renderError($request, $err);
+            $this
+                ->logger
+                ->error(sprintf('connect user with authorization code (redirect URI), requested URL is %s : %s', $request->getUri(), $e))
+            ;
+            $this->renderError($request);
             return new RedirectResponse($this->router->generate('sylius_shop_checkout_address'));
         }
 
         $code = $request->query->get('code');
 
         if (null === $code) {
-            $this->renderError($request, 'access_denied');
+            $this->renderError($request);
             return new RedirectResponse($this->router->generate('sylius_shop_checkout_address'));
         }
 
@@ -100,26 +108,38 @@ final class ConnectController
                 $order->setCustomer($customer);
             }
 
-            $address = $this->getCustomerAddress($customer, $user->getShippingAddress());
-
-            $order->setBillingAddress(clone $address);
-            $order->setShippingAddress(clone $address);
-
             $stateMachine = $this->stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH);
 
-            if ($order->isShippingRequired()) {
-                $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_SELECT_SHIPPING);
-            }
+            $address = $this->getCustomerAddress($customer, $user);
 
-            $order->setShippingAddress(clone $address);
-            $order->setBillingAddress(clone $address);
+            if (null !== $address) {
+                $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_ADDRESS);
+                $order->setShippingAddress(clone $address);
+                $order->setBillingAddress(clone $address);
+            }
 
             $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_SELECT_SHIPPING);
 
+            if ($order->isShippingRequired()) {
+                if (null === $address) {
+                    /** @var FlashBagInterface $flashBag */
+                    $flashBag = $request->getSession()->getBag('flashes');
+                    $flashBag->add('info', 'brightweb.stan_connect.need_address_info');
+
+                    $redirect = new RedirectResponse($this->router->generate('sylius_shop_checkout_address'));
+                } else {
+                    $redirect = new RedirectResponse($this->router->generate('sylius_shop_checkout_select_shipping'));
+                }
+            } else {
+                $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_SELECT_PAYMENT);
+                $redirect = new RedirectResponse($this->router->generate('sylius_shop_checkout_select_payment'));
+            }
+
             $this->orderManager->flush();
 
-            return new RedirectResponse($this->router->generate('sylius_shop_checkout_select_shipping'));
+            return $redirect;
         } catch(ApiException $e) {
+            $this->renderError($request);
             return new RedirectResponse($this->router->generate('sylius_shop_checkout_address', array(
                 'stan_connect_error' => 'server_error'
             )));
@@ -144,25 +164,30 @@ final class ConnectController
         return $customer;
     }
 
-    private function getCustomerAddress(CustomerInterface $customer, StanUserAddress $stanAddress): AddressInterface
+    private function getCustomerAddress(CustomerInterface $customer, StanUser $user): ?AddressInterface
     {
+        $stanAddress = $user->getShippingAddress();
+
+        if (!$stanAddress->getStreetAddress()) {
+            return null;
+        }
+
         $address = $this->addressFactory->createForCustomer($customer);
 
-        $address->setFirstName($stanAddress->getFirstname());
-        $address->setLastName($stanAddress->getLastname());
+        $address->setFirstName($stanAddress->getFirstname() ?: $user->getGivenName());
+        $address->setLastName($stanAddress->getLastname() ?: $user->getFamilyName());
         $address->setStreet($stanAddress->getStreetAddress());
         $address->setCity($stanAddress->getLocality());
         $address->setPostcode($stanAddress->getZipCode());
-        $address->setPhoneNumber($stanAddress->getPhone());
+        $address->setCountryCode('FR'); // TODO should be variable from user infos
+        $address->setPhoneNumber($user->getPhone());
 
         return $address;
     }
 
-    private function renderError(Request $request, string $err) {
-        if (null !== $err) {
-            /** @var FlashBagInterface $flashBag */
-            $flashBag = $request->getSession()->getBag('flashes');
-            $flashBag->add('error', 'brightweb.stan_connect.ui.error.auth_error');
-        }
+    private function renderError(Request $request) {
+        /** @var FlashBagInterface $flashBag */
+        $flashBag = $request->getSession()->getBag('flashes');
+        $flashBag->add('error', 'brightweb.stan_connect.auth_error');
     }
 }

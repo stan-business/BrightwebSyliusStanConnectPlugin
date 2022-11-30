@@ -35,7 +35,7 @@ final class StanConnectConfigurationProvider implements StanConnectConfiguration
     public function getClientSecret(): string
     {
         $config = $this->getConfiguration();
-        return $config->getClientId();
+        return $config->getClientSecret();
     }
 
     public function getScope(): string

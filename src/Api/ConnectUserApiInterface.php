@@ -10,9 +10,11 @@ declare(strict_types=1);
 
 namespace Brightweb\SyliusStanConnectPlugin\Api;
 
+use Stan\Model\User;
+
 interface ConnectUserApiInterface
 {
-    public function getUserWithAuthorizationCode(string $code);
+    public function getUserWithAuthorizationCode(string $code): User;
 
     public function getConnectUrl(): string;
 

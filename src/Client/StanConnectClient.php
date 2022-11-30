@@ -48,10 +48,12 @@ final class StanConnectClient implements StanConnectClientInterface
     public function getAccessToken(string $code, string $redirectUri): string
     {
         $clientId = $this->stanConnectConfigurationProvider->getClientId();
+        $clientSecret = $this->stanConnectConfigurationProvider->getClientSecret();
+
         $accessTokenPayload = new ConnectAccessTokenRequestBody();
         $accessTokenPayload = $accessTokenPayload
             ->setClientId($clientId)
-            ->setClientSecret($this->stanConnectConfigurationProvider->getClientSecret())
+            ->setClientSecret($clientSecret)
             ->setCode($code)
             ->setGrantType('authorization_code')
             ->setScope($this->stanConnectConfigurationProvider->getScope())

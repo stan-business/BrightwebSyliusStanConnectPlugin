@@ -10,20 +10,27 @@ declare(strict_types=1);
 
 namespace Brightweb\SyliusStanConnectPlugin\Api;
 
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 use Brightweb\SyliusStanConnectPlugin\Client\StanConnectClientInterface;
 
 use Stan\Utils\StanUtils;
+use Stan\Model\User;
 
 final class ConnectUserApi implements ConnectUserApiInterface
 {
+
+    private UrlGeneratorInterface $router;
+
     private StanConnectClientInterface $stanConnectClient;
 
-    public function __construct(StanConnectClientInterface $stanConnectClient)
+    public function __construct(UrlGeneratorInterface $router, StanConnectClientInterface $stanConnectClient)
     {
+        $this->router = $router;
         $this->stanConnectClient = $stanConnectClient;
     }
 
-    public function getUserWithAuthorizationCode(string $code)
+    public function getUserWithAuthorizationCode(string $code): User
     {
         $accessToken = $this
             ->stanConnectClient
@@ -32,6 +39,8 @@ final class ConnectUserApi implements ConnectUserApiInterface
         $user = $this
             ->stanConnectClient
             ->getUser($accessToken);
+
+        return $user;
     }
 
     public function getConnectUrl(): string
@@ -45,6 +54,8 @@ final class ConnectUserApi implements ConnectUserApiInterface
 
     public function getRedirectUri(): string
     {
-        return "TODO"; // TODO
+        $scheme = $this->router->getContext()->getScheme();
+        $host = $this->router->getContext()->getHost();
+        return $scheme . '://' . $host . ':8000/stan-connect';
     }
 }

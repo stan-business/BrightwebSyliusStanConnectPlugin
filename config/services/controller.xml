@@ -10,6 +10,7 @@
         </service>
 
         <service id="Brightweb\SyliusStanConnectPlugin\Controller\ConnectController">
+            <argument type="service" id="monolog.logger.stan_connect" />
             <argument type="service" id="router" />
             <argument type="service" id="sylius.context.cart" />
             <argument type="service" id="sylius.factory.address" />

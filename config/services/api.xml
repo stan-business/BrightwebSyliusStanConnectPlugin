@@ -16,6 +16,7 @@
             id="Brightweb\SyliusStanConnectPlugin\Api\ConnectUserApiInterface"
             class="Brightweb\SyliusStanConnectPlugin\Api\ConnectUserApi"
         >
+            <argument type="service" id="router" />
             <argument type="service" id="Brightweb\SyliusStanConnectPlugin\Client\StanConnectClientInterface" />
         </service>
     </services>
