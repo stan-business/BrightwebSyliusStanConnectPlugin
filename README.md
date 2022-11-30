@@ -14,7 +14,7 @@
 
 [![](https://img.shields.io/packagist/l/stan-business/sylius-stan-connect-plugin.svg) ](https://packagist.org/packages/stan-business/sylius-stan-connect-plugin "License") [ ![](https://img.shields.io/packagist/v/stan-business/sylius-stan-connect-plugin.svg) ](https://packagist.org/packages/stan-business/sylius-stan-connect-plugin "Version") [![Support](https://img.shields.io/badge/support-contact%20author-blue])](https://compte.stan-app.fr)
 
-[Stan is a French digital solution](https://www.stan-business.fr) that allows its users to connect in 1 click, with a unique digital identifier, to all e-commerce sites developed with Sylius.
+[Stan is a French digital solution](https://www.stan-business.fr) that allows its users to connect in 1 click, with a unique digital identifier, to all e-commerce partner sites developed with Sylius.
 
 By adding the Stan Connect plugin, users will be able to experience your products and services immediately without having to fill out any registration form. By eliminating this step, you offer them a smooth and frictionless experience while guaranteeing an excellent level of security.
 
