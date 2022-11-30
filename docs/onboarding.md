@@ -22,4 +22,4 @@ You're all setup 🎉 Stan team will validate your account as fast as possible
 
 ---
 
-Prev: [onboarding](onboarding.md)
+Prev: [Installation](installation.md)

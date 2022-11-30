@@ -20,7 +20,7 @@ By adding the Stan Connect plugin, users will be able to experience your product
 
 ## NOTE
 
-We highly to integrate [Stan Pay](https://github.com/stan-business/BrightwebSyliusStanPayPlugin) with Stan Connect in order to offer a complete Stan experience to your customers!
+We highly recommend to integrate [Stan Pay](https://github.com/stan-business/BrightwebSyliusStanPayPlugin) with Stan Connect in order to offer a complete Stan experience to your customers!
 
 ## Why should I use Stan Connect in my online business?
 
