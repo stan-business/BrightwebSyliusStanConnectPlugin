@@ -11,7 +11,6 @@
 </p>
 
 # Stan Connect Plugin in Sylius
-----
 
 [![](https://img.shields.io/packagist/l/stan-business/sylius-stan-connect-plugin.svg) ](https://packagist.org/packages/stan-business/sylius-stan-connect-plugin "License") [ ![](https://img.shields.io/packagist/v/stan-business/sylius-stan-connect-plugin.svg) ](https://packagist.org/packages/stan-business/sylius-stan-connect-plugin "Version") [![Support](https://img.shields.io/badge/support-contact%20author-blue])](https://compte.stan-app.fr)
 
@@ -22,9 +21,13 @@ By adding the Stan Connect plugin, users will be able to experience your product
 ## Why should I use Stan Connect in my online business?
 
 ✔ More traffic to your site
+
 ✔ Improved customer experience
+
 ✔ New customers
+
 ✔ More sales
+
 ✔ Enhanced security
 
 ## What does this plugin give me?
