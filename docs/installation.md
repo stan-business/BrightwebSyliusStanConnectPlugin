@@ -49,6 +49,6 @@ Add plugin dependencies to your config/bundles.php file:
    bin/console doctrine:migrations:migrate -n
    ```
 
-# Configuration
+---
 
-You will only need to create a free [Stan account](https://compte.stan-app.fr), and get your API credentials.
+Next: [Onboarding](onboarding.md)

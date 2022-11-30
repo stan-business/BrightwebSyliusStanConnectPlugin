@@ -18,6 +18,10 @@
 
 By adding the Stan Connect plugin, users will be able to experience your products and services immediately without having to fill out any registration form. By eliminating this step, you offer them a smooth and frictionless experience while guaranteeing an excellent level of security.
 
+## NOTE
+
+We highly to integrate [Stan Pay](https://github.com/stan-business/BrightwebSyliusStanPayPlugin) with Stan Connect in order to offer a complete Stan experience to your customers!
+
 ## Why should I use Stan Connect in my online business?
 
 ✔ More traffic to your site
